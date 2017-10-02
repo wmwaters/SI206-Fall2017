@@ -125,17 +125,55 @@ if __name__ == "__main__":
 #########
 
 
-
-
-
-
-
 ##**##**##**##@##**##**##**## # DO NOT CHANGE OR DELETE THIS COMMENT LINE -- we use it for grading your file
 ###############################################
 
 ### Write unit tests below this line for the cards code above.
-
-
+class CardTests(unittest.TestCase):
+	def test_cardrank0(self):
+		c = Card(rank = 12)
+		self.assertEqual(c.rank, "Queen")
+	def test_cardrank1(self):
+		c = Card(rank = 1)
+		self.assertEqual(c.rank, "Ace")
+	def test_cardrank2(self):
+		c = Card(rank = 3)
+		self.assertEqual(c.rank, 3)
+	def test_cardsuit0(self):
+		c = Card(suit = 1)
+		self.assertEqual(c.suit, "Clubs")
+	def test_cardsuit1(self):
+		c = Card(suit = 2)
+		self.assertEqual(c.suit, "Hearts")
+	def test_card_instance(self):
+		c = Card()
+		self.assertEqual(c.suit_names, ["Diamonds", "Clubs", "Hearts", "Spades"])
+	def test_card_instance1(self):
+		c = Card(suit = 2, rank = 7)
+		self.assertEqual(str(c), "7 of Hearts")
+	def test_deck_instance(self):
+		d = Deck()
+		self.assertEqual(len(d.cards), 52)
+	def test_pop_instance(self):
+		d = Deck()
+		c = Card()
+		self.assertEqual(type(d.pop_card()), type(c))
+	def test_war_instance(self):
+		p = play_war_game(testing=True)
+		self.assertEqual(len(p), 3)
+		self.assertEqual(type(p[0]), str)
+	def test_sort(self):
+		d = Deck()
+		d.sort_cards()
+		#ensuring that sorting method actually works
+		self.assertEqual(str(d.cards[0]), str(Card(0,1)))
+	def test_shuffle(self):
+		#testing shuffle function, may fail sometimes, but most of the time, test will run correctly
+		d = Deck()
+		c1 = d.cards[0]
+		d.shuffle()
+		c2 = d.cards[0]
+		self.assertNotEqual(str(c1), str(c2))
 
 #############
 ## The following is a line to run all of the tests you include:
